@@ -6,6 +6,10 @@ Plain guide for a permanent URL Mel can bookmark — no Cloudflare tunnel, no PC
 
 ## Go live on Vercel (website) + Render (API)
 
+**Your live site:** check Vercel dashboard for your URL (e.g. `https://cadence-xxxxx.vercel.app`)
+
+**Your API:** `https://cadence-afair86-api.onrender.com` (after Render blueprint)
+
 Cadence is two pieces:
 
 | Piece | Host | Why |
