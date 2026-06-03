@@ -1,0 +1,64 @@
+.dashboard-page {
+  &--loading,
+  &--error {
+    padding: 40px;
+    text-align: center;
+    color: var(--text-muted);
+  }
+
+  &--error {
+    color: var(--danger);
+  }
+
+  > .time-budget-widget {
+    margin-bottom: 16px;
+  }
+}
+
+.dashboard-page__cross-nudge {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  background: #f5f3ff;
+  border: 1px solid #ddd6fe;
+  border-radius: 10px;
+  font-size: 0.8125rem;
+
+  button {
+    border: none;
+    background: #7c3aed;
+    color: #fff;
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+
+    &:hover {
+      background: #6d28d9;
+    }
+  }
+}
+
+.dashboard-page__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.dashboard-page__widgets {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 1100px) {
+  .dashboard-page__grid {
+    grid-template-columns: 1fr 320px;
+    align-items: start;
+  }
+}

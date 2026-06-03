@@ -1,0 +1,167 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Team {
+  id           String   @id @default(cuid())
+  name         String
+  captureToken String?  @unique
+  createdAt    DateTime @default(now())
+  users     User[]
+  contacts  Contact[]
+  pointConfig PointConfig?
+  inboxMessages InboxMessage[]
+  commitments   Commitment[]
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         String   @default("BDM")
+  teamId       String
+  team         Team     @relation(fields: [teamId], references: [id])
+  activities   Activity[]
+  inboxMessages InboxMessage[]
+  commitments   Commitment[]
+  timeBudget   UserTimeBudget?
+  createdAt    DateTime @default(now())
+}
+
+model UserTimeBudget {
+  id                   String @id @default(cuid())
+  userId               String @unique
+  user                 User   @relation(fields: [userId], references: [id])
+  businessHoursPerWeek Float  @default(20)
+  personalHoursPerWeek Float  @default(3)
+  familyHoursPerWeek   Float  @default(2)
+  updatedAt            DateTime @updatedAt
+}
+
+model Contact {
+  id              String   @id @default(cuid())
+  teamId          String
+  team            Team     @relation(fields: [teamId], references: [id])
+  name            String
+  company         String
+  position        String?
+  phone           String?
+  email           String?
+  whatsappPhone   String?
+  instagramHandle String?
+  facebookUsername String?
+  linkedinUrl     String?
+  address         String?
+  tags            String[] @default([])
+  sphere          String   @default("business")
+  preferredMethod String   @default("call")
+  preferredTimes  String?
+  responseTime    String?
+  healthScore     Int      @default(70)
+  healthStatus    String   @default("healthy")
+  lastContactAt   DateTime?
+  activities      Activity[]
+  automations     Automation[]
+  inboxMessages   InboxMessage[]
+  commitments     Commitment[]
+  opportunities   Opportunity[]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Activity {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  contactId   String
+  contact     Contact  @relation(fields: [contactId], references: [id])
+  type        String
+  durationMin Int?
+  outcome     String?
+  notes       String?
+  points      Float
+  occurredAt  DateTime @default(now())
+  createdAt   DateTime @default(now())
+}
+
+model Automation {
+  id          String   @id @default(cuid())
+  contactId   String
+  contact     Contact  @relation(fields: [contactId], references: [id])
+  channel     String
+  message     String
+  insight     String?
+  scheduledAt DateTime
+  status      String   @default("pending")
+  createdAt   DateTime @default(now())
+}
+
+model InboxMessage {
+  id         String   @id @default(cuid())
+  teamId     String
+  team       Team     @relation(fields: [teamId], references: [id])
+  contactId  String?
+  contact    Contact? @relation(fields: [contactId], references: [id])
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id])
+  platform   String
+  body       String
+  fromLabel  String?
+  status     String   @default("unread")
+  externalId String?  @unique
+  receivedAt DateTime @default(now())
+  createdAt  DateTime @default(now())
+}
+
+model Opportunity {
+  id        String  @id @default(cuid())
+  contactId String
+  contact   Contact @relation(fields: [contactId], references: [id])
+  value     Int
+  stage     String
+  createdAt DateTime @default(now())
+}
+
+model Commitment {
+  id          String   @id @default(cuid())
+  teamId      String
+  team        Team     @relation(fields: [teamId], references: [id])
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  contactId   String?
+  contact     Contact? @relation(fields: [contactId], references: [id])
+  title       String
+  description String?
+  dueAt       DateTime
+  status      String   @default("suggested")
+  direction   String
+  source      String   @default("manual")
+  sourceId    String?
+  sourceQuote String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([teamId, status, dueAt])
+}
+
+model PointConfig {
+  id      String @id @default(cuid())
+  teamId  String @unique
+  team    Team   @relation(fields: [teamId], references: [id])
+  call    Float  @default(1)
+  sms     Float  @default(0.5)
+  email   Float  @default(0.5)
+  meeting Float  @default(2)
+  coffee  Float  @default(2)
+  siteVisit Float @default(1.5) @map("site_visit")
+  quote   Float  @default(0.5)
+  note    Float  @default(0.25)
+  dailyTarget   Float @default(15)
+  monthlyTarget Float @default(15)
+}

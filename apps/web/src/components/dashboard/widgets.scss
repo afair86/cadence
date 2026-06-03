@@ -1,0 +1,165 @@
+.widget {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  box-shadow: var(--shadow);
+
+  h3 {
+    margin: 0 0 14px;
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+}
+
+.automation-widget__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+
+  time {
+    margin-left: auto;
+    font-weight: 600;
+    color: var(--text);
+  }
+}
+
+.automation-widget__message {
+  margin: 0 0 10px;
+  padding: 12px;
+  background: var(--surface);
+  border-radius: 8px;
+  font-size: 0.8125rem;
+  font-style: italic;
+  color: var(--text);
+}
+
+.automation-widget__status {
+  margin: 0 0 14px;
+  font-size: 0.75rem;
+  color: var(--warning);
+  font-weight: 500;
+}
+
+.automation-widget__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.automation-widget__edit,
+.automation-widget__approve {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.automation-widget__edit {
+  border: 1px solid var(--border);
+  background: var(--card);
+}
+
+.automation-widget__approve {
+  border: none;
+  background: var(--primary);
+  color: #fff;
+
+  &:hover {
+    background: var(--primary-dark);
+  }
+}
+
+.health-widget__chart {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.health-widget__donut {
+  width: 100px;
+  height: 100px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.health-widget__donut-hole {
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  background: var(--card);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  strong {
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  span {
+    font-size: 0.625rem;
+    color: var(--text-muted);
+  }
+}
+
+.health-widget__legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.75rem;
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+
+  span {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    flex-shrink: 0;
+  }
+}
+
+.opportunities-widget ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.opportunities-widget li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.8125rem;
+
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  div span {
+    display: block;
+    font-size: 0.6875rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+}

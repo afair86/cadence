@@ -1,0 +1,110 @@
+.smart-tasks-page {
+  padding: 8px 0 24px;
+
+  &--loading,
+  &--error {
+    padding: 40px 16px;
+    text-align: center;
+    color: var(--text-muted);
+  }
+
+  &--error {
+    color: var(--danger);
+  }
+}
+
+.smart-tasks-page__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+
+  h1 {
+    margin: 0;
+    font-size: 1.375rem;
+  }
+
+  p {
+    margin: 4px 0 0;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+}
+
+.smart-tasks-page__count {
+  flex-shrink: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.smart-tasks-page__mode {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+
+  code {
+    font-size: 0.75rem;
+    background: var(--card);
+    padding: 1px 4px;
+    border-radius: 4px;
+  }
+
+  &--ai {
+    background: #eef2ff;
+    border-color: #c7d2fe;
+    color: #4338ca;
+  }
+}
+
+.smart-tasks-page__summary {
+  margin: 0 0 16px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.smart-tasks-page__urgent {
+  margin: 0 0 12px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--warning);
+}
+
+.smart-tasks-page__empty {
+  padding: 32px 24px;
+  text-align: center;
+
+  h2 {
+    margin: 0 0 8px;
+    font-size: 1rem;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+}
+
+.smart-tasks-page .smart-plan.card {
+  margin-top: 0;
+}
+
+@media (max-width: 1023px) {
+  .smart-tasks-page__mode span {
+    font-size: 0.75rem;
+  }
+}

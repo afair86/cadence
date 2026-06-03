@@ -1,0 +1,21 @@
+CADENCE — SHARE WITH MEL
+========================
+
+Mel's link (open in any browser, any network):
+  https://telephone-isaac-tape-handled.trycloudflare.com/login
+
+Login:
+  Email:    alex@demo.com
+  Password: demo1234
+
+Local testing (Adam's PC only):
+  http://127.0.0.1:5190/login
+
+If you see a blank page:
+  1. Hard refresh: Ctrl + Shift + R
+  2. Make sure the URL is exactly http://127.0.0.1:5190/login
+  3. Do NOT use old trycloudflare links — they expire
+
+Demo login: alex@demo.com / demo1234
+
+Last updated: 2026-06-03

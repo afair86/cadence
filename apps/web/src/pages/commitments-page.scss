@@ -1,0 +1,266 @@
+.commitments-page {
+  padding: 8px 0 32px;
+
+  &--loading {
+    padding: 40px 16px;
+    text-align: center;
+    color: var(--text-muted);
+  }
+}
+
+.commitments-page__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+
+  h1 {
+    margin: 0;
+    font-size: 1.375rem;
+  }
+
+  p {
+    margin: 4px 0 0;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+  }
+}
+
+.commitments-page__add-btn {
+  border: none;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.commitments-page__ai-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+
+  &--on {
+    background: #eef2ff;
+    border-color: #c7d2fe;
+    color: #4338ca;
+  }
+}
+
+.commitments-page__notice {
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #ecfdf5;
+  color: #047857;
+  font-size: 0.8125rem;
+}
+
+.commitments-page__overdue-banner {
+  margin: 0 0 14px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #fef2f2;
+  color: #b91c1c;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.commitments-page__form,
+.commitments-page__scan {
+  margin-bottom: 16px;
+  padding: 16px;
+
+  h2 {
+    margin: 0 0 8px;
+    font-size: 0.9375rem;
+  }
+
+  p {
+    margin: 0 0 10px;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  input,
+  select,
+  textarea {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-size: 0.875rem;
+    font-family: inherit;
+  }
+
+  button[type='submit'] {
+    border: none;
+    background: var(--primary);
+    color: #fff;
+    border-radius: 8px;
+    padding: 8px 14px;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+}
+
+.commitments-page__section {
+  margin-bottom: 24px;
+
+  h2 {
+    margin: 0 0 4px;
+    font-size: 0.9375rem;
+  }
+
+  &--done {
+    opacity: 0.75;
+  }
+}
+
+.commitments-page__section-note {
+  margin: 0 0 10px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.commitments-page__empty {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.commitments-page__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.commitments-page__card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+
+  strong {
+    display: block;
+    margin: 8px 0 4px;
+    font-size: 0.9375rem;
+  }
+
+  &--overdue {
+    border-color: #fecaca;
+    background: #fffbfb;
+  }
+}
+
+.commitments-page__card-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+
+  time {
+    margin-left: auto;
+    font-size: 0.6875rem;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+}
+
+.commitments-page__dir {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 2px 8px;
+
+  &--mine {
+    background: #dbeafe;
+    color: #1e40af;
+  }
+
+  &--theirs {
+    background: #ffedd5;
+    color: #c2410c;
+  }
+}
+
+.commitments-page__who {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+
+.commitments-page__quote {
+  margin: 8px 0 0;
+  padding: 8px 10px;
+  border-left: 3px solid var(--border);
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.commitments-page__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+
+  button,
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text-muted);
+  }
+}
+
+.commitments-page__confirm {
+  border: none !important;
+  background: var(--primary) !important;
+  color: #fff !important;
+}
+
+.commitments-page__done {
+  border-color: #bbf7d0 !important;
+  background: #ecfdf5 !important;
+  color: #047857 !important;
+}
+
+.commitments-page__cal-link {
+  margin-left: auto;
+}

@@ -1,0 +1,133 @@
+.activities-page__header {
+  padding: 20px 0 16px;
+
+  h1 {
+    margin: 0;
+    font-size: 1.375rem;
+  }
+
+  p {
+    margin: 4px 0 0;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+  }
+}
+
+.activities-page__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+
+  h2 {
+    margin: 0 0 16px;
+    font-size: 1rem;
+  }
+}
+
+.activities-page__form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 0.8125rem;
+    font-weight: 500;
+  }
+
+  select,
+  input,
+  textarea {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font: inherit;
+  }
+
+  button {
+    margin-top: 4px;
+    border: none;
+    background: var(--primary);
+    color: #fff;
+    border-radius: 8px;
+    padding: 12px;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:disabled {
+      opacity: 0.6;
+    }
+  }
+}
+
+.activities-page__msg {
+  margin: 0;
+  padding: 8px 12px;
+  background: #f0fdf4;
+  color: var(--success);
+  border-radius: 8px;
+  font-size: 0.8125rem;
+}
+
+.activities-page__list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.activities-page__list li {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  strong {
+    display: block;
+    font-size: 0.875rem;
+  }
+
+  > div:first-child span {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+}
+
+.activities-page__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 6px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.activities-page__type {
+  text-transform: capitalize;
+  background: var(--surface);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.activities-page__empty {
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+@media (min-width: 900px) {
+  .activities-page__grid {
+    grid-template-columns: 360px 1fr;
+    align-items: start;
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "cadence",
+  "private": true,
+  "version": "0.2.0",
+  "packageManager": "pnpm@9.15.0",
+  "description": "AI-powered relationship cadence platform for BDMs",
+  "scripts": {
+    "dev": "pnpm --filter @cadence/shared build && concurrently \"pnpm --filter @cadence/api dev\" \"pnpm --filter @cadence/web dev\"",
+    "dev:web": "pnpm --filter @cadence/shared build && pnpm --filter @cadence/web dev",
+    "start:web": "pnpm --filter @cadence/shared build && pnpm --filter @cadence/web build && pnpm --filter @cadence/web dev:stable",
+    "dev:api": "pnpm --filter @cadence/api dev",
+    "dev:mobile": "pnpm --filter @cadence/mobile start",
+    "db:up": "docker compose up -d",
+    "db:setup": "pnpm --filter @cadence/api db:setup",
+    "build": "pnpm --filter @cadence/shared build && pnpm --filter @cadence/api build && pnpm --filter @cadence/web build",
+    "deploy:web": "pnpm --filter @cadence/shared build && pnpm --filter @cadence/web build && cd apps/web && vercel --prod"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
