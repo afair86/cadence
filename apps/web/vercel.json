@@ -1,7 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "installCommand": "cd ../.. && pnpm install",
-  "buildCommand": "cd ../.. && pnpm --filter @cadence/shared build && pnpm --filter @cadence/api exec prisma generate && pnpm --filter @cadence/api build && if [ -n \"$DATABASE_URL\" ]; then pnpm --filter @cadence/api exec prisma db push && pnpm --filter @cadence/api db:seed; fi && pnpm --filter @cadence/web build",
+  "buildCommand": "cd ../.. && bash scripts/vercel-build.sh",
   "outputDirectory": "dist",
   "framework": "vite",
   "functions": {
