@@ -1,7 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "installCommand": "pnpm install",
-  "buildCommand": "pnpm --filter @cadence/shared build && pnpm --filter @cadence/api build && bash scripts/vercel-db.sh && pnpm --filter @cadence/web build",
+  "installCommand": "bash scripts/vercel-install.sh",
+  "buildCommand": "bash scripts/vercel-build.sh",
   "outputDirectory": "apps/web/dist",
   "framework": "vite",
   "rewrites": [
