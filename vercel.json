@@ -1,8 +1,17 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "installCommand": "pnpm install",
-  "buildCommand": "pnpm --filter @cadence/shared build && pnpm --filter @cadence/web build",
+  "buildCommand": "pnpm --filter @cadence/shared build && pnpm --filter @cadence/api exec prisma generate && pnpm --filter @cadence/api build && if [ -n \"$DATABASE_URL\" ]; then pnpm --filter @cadence/api exec prisma db push && pnpm --filter @cadence/api db:seed; fi && pnpm --filter @cadence/web build",
   "outputDirectory": "apps/web/dist",
   "framework": "vite",
-  "rewrites": [{ "source": "/((?!assets/).*)", "destination": "/index.html" }]
+  "functions": {
+    "api/index.ts": {
+      "includeFiles": "apps/api/**"
+    }
+  },
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api" },
+    { "source": "/health", "destination": "/api" },
+    { "source": "/((?!assets/).*)", "destination": "/index.html" }
+  ]
 }

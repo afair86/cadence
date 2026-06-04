@@ -83,7 +83,7 @@ export function toInboundDto(row: {
   fromLabel: string | null;
   status: string;
   receivedAt: Date;
-  contact: {
+  contact?: {
     name: string;
     company: string;
     sphere: string;

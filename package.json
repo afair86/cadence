@@ -16,6 +16,8 @@
     "deploy:web": "pnpm --filter @cadence/shared build && pnpm --filter @cadence/web build && cd apps/web && vercel --prod"
   },
   "devDependencies": {
-    "concurrently": "^9.1.2"
+    "@vercel/node": "^5.0.0",
+    "concurrently": "^9.1.2",
+    "serverless-http": "^3.2.0"
   }
 }
