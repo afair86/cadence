@@ -1,3 +1,4 @@
-import { app } from '../apps/api/src/app.js';
+import serverless from 'serverless-http';
+import { app } from '../apps/api/dist/app.js';
 
-export default app;
+export default serverless(app);

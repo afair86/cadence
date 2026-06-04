@@ -44,10 +44,14 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
 
   const res = await fetch(`${base}${path}`, { ...options, headers });
   if (!res.ok) {
-    const err = await res.json().catch(() => ({ error: res.statusText }));
-    throw new Error(err.error ?? 'Request failed');
+    const err = await res.json().catch(() => ({ error: res.statusText || 'Request failed' }));
+    throw new Error(err.error ?? `Request failed (${res.status})`);
   }
-  return res.json();
+  try {
+    return await res.json();
+  } catch {
+    throw new Error('Server returned an invalid response. Try again in a moment.');
+  }
 }
 
 export async function login(email: string, password: string): Promise<AuthResponse> {

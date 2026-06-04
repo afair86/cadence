@@ -4,6 +4,12 @@
   "buildCommand": "pnpm vercel:build",
   "outputDirectory": "apps/web/dist",
   "framework": "vite",
+  "functions": {
+    "api/index.ts": {
+      "includeFiles": "apps/api/dist/**",
+      "maxDuration": 30
+    }
+  },
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api" },
     { "source": "/health", "destination": "/api" },

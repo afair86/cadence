@@ -20,7 +20,8 @@ export default function LoginPage() {
     try {
       await login(email, password);
     } catch (err) {
-      setError((err as Error).message);
+      const message = err instanceof Error ? err.message : 'Sign-in failed';
+      setError(message || 'Sign-in failed. Check your connection and try again.');
     } finally {
       setLoading(false);
     }
