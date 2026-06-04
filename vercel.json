@@ -1,14 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "installCommand": "pnpm install",
-  "buildCommand": "pnpm vercel:build",
+  "buildCommand": "pnpm --filter @cadence/shared build && pnpm --filter @cadence/api build && bash scripts/vercel-db.sh && pnpm --filter @cadence/web build",
   "outputDirectory": "apps/web/dist",
   "framework": "vite",
-  "functions": {
-    "api/index.ts": {
-      "includeFiles": "apps/api/**"
-    }
-  },
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api" },
     { "source": "/health", "destination": "/api" },
