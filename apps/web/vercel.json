@@ -1,7 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "installCommand": "cd ../.. && pnpm install",
-  "buildCommand": "cd ../.. && bash scripts/vercel-build.sh",
+  "buildCommand": "cd ../.. && pnpm vercel:build",
   "outputDirectory": "dist",
   "framework": "vite",
   "functions": {
