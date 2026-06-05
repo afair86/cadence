@@ -7,7 +7,7 @@
   "functions": {
     "api/index.ts": {
       "maxDuration": 30,
-      "includeFiles": "api/server.mjs"
+      "includeFiles": "api/handler.mjs"
     }
   },
   "rewrites": [

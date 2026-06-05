@@ -41,6 +41,11 @@ export function createApp() {
   app.use('/api/webhooks/capture', captureWebhookRoutes);
   app.use('/api/webhooks/twilio', twilioWebhookRoutes);
 
+  app.use((err: unknown, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
+    console.error('Unhandled API error:', err);
+    res.status(500).json({ error: err instanceof Error ? err.message : 'Server error' });
+  });
+
   return app;
 }
 

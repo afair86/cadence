@@ -15,7 +15,7 @@
     "build": "pnpm --filter @cadence/shared build && pnpm --filter @cadence/api build && pnpm --filter @cadence/web build",
     "vercel:install": "pnpm install -r --filter=!@cadence/mobile",
     "vercel:build": "pnpm --filter @cadence/shared build && pnpm --filter @cadence/api build && pnpm --filter @cadence/api exec prisma generate && node scripts/vercel-db.mjs && pnpm vercel:bundle-api && pnpm --filter @cadence/web build",
-    "vercel:bundle-api": "esbuild apps/api/src/app.ts --bundle --platform=node --target=node20 --format=esm --outfile=api/server.mjs --packages=external --alias:@cadence/shared=./packages/shared/dist/index.js",
+    "vercel:bundle-api": "esbuild api/entry.ts --bundle --platform=node --target=node20 --format=esm --outfile=api/handler.mjs --packages=external --external:@prisma/client --alias:@cadence/shared=./packages/shared/dist/index.js",
     "deploy:web": "pnpm --filter @cadence/shared build && pnpm --filter @cadence/web build && cd apps/web && vercel --prod"
   },
   "devDependencies": {
@@ -24,6 +24,7 @@
     "esbuild": "^0.25.0"
   },
   "dependencies": {
-    "@cadence/api": "workspace:*"
+    "@cadence/api": "workspace:*",
+    "serverless-http": "^3.2.0"
   }
 }
