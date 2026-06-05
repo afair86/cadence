@@ -6,8 +6,8 @@
   "framework": "vite",
   "functions": {
     "api/index.ts": {
-      "includeFiles": "apps/api/dist/**",
-      "maxDuration": 30
+      "maxDuration": 30,
+      "includeFiles": "apps/api/dist/**,packages/shared/dist/**,apps/api/prisma/schema.prisma"
     }
   },
   "rewrites": [

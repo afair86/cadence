@@ -1,4 +1,12 @@
-import serverless from 'serverless-http';
-import { app } from '../apps/api/dist/app.js';
+if (!process.env.DATABASE_URL) {
+  process.env.DATABASE_URL =
+    process.env.POSTGRES_PRISMA_URL ??
+    process.env.POSTGRES_URL ??
+    process.env.POSTGRES_URL_NON_POOLING ??
+    '';
+}
 
-export default serverless(app);
+const { createApp } = await import('@cadence/api/app');
+const app = createApp();
+
+export default app;
