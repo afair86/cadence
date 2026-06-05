@@ -18,7 +18,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     ensureDatabaseUrl();
     if (!cached) {
-      const { createApp } = await import('@cadence/api/app');
+      const { createApp } = await import('../apps/api/dist/app.js');
       cached = serverless(createApp());
     }
     return cached(req, res);
