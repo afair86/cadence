@@ -14,12 +14,14 @@
     "db:setup": "pnpm --filter @cadence/api db:setup",
     "build": "pnpm --filter @cadence/shared build && pnpm --filter @cadence/api build && pnpm --filter @cadence/web build",
     "vercel:install": "pnpm install -r --filter=!@cadence/mobile",
-    "vercel:build": "pnpm --filter @cadence/shared build && pnpm --filter @cadence/api build && pnpm --filter @cadence/api exec prisma generate && node scripts/vercel-db.mjs && pnpm --filter @cadence/web build",
+    "vercel:build": "pnpm --filter @cadence/shared build && pnpm --filter @cadence/api build && pnpm --filter @cadence/api exec prisma generate && node scripts/vercel-db.mjs && pnpm vercel:bundle-api && pnpm --filter @cadence/web build",
+    "vercel:bundle-api": "esbuild apps/api/src/app.ts --bundle --platform=node --target=node20 --format=esm --outfile=api/server.mjs --packages=external --alias:@cadence/shared=./packages/shared/dist/index.js",
     "deploy:web": "pnpm --filter @cadence/shared build && pnpm --filter @cadence/web build && cd apps/web && vercel --prod"
   },
   "devDependencies": {
     "@vercel/node": "^5.0.0",
-    "concurrently": "^9.1.2"
+    "concurrently": "^9.1.2",
+    "esbuild": "^0.25.0"
   },
   "dependencies": {
     "@cadence/api": "workspace:*"

@@ -1,1 +1,3 @@
-export { app as default } from '../apps/api/dist/app.js';
+import { createApp } from './server.mjs';
+
+export default createApp();
