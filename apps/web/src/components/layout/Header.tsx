@@ -47,9 +47,9 @@ export default function Header() {
         <button type="button" className="header__date">
           Today
         </button>
-        <button type="button" className="header__add" onClick={openAddContact}>
+        <button type="button" className="header__add" onClick={openAddContact} aria-label="Add contact">
           <Plus size={16} />
-          Add Contact
+          <span>Add Contact</span>
         </button>
         <button type="button" className="header__bell" aria-label="Notifications">
           <Bell size={18} />

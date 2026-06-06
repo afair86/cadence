@@ -9,7 +9,7 @@
   justify-content: space-around;
   background: var(--card);
   border-top: 1px solid var(--border);
-  padding: 8px 4px calc(8px + env(safe-area-inset-bottom));
+  padding: 8px 2px calc(8px + env(safe-area-inset-bottom));
 }
 
 .mobile-tab-bar__link {
@@ -20,14 +20,22 @@
   font-size: 0.625rem;
   font-weight: 500;
   color: var(--text-muted);
-  padding: 4px 4px;
+  padding: 4px 2px;
   min-width: 0;
   flex: 1;
-  max-width: 72px;
+  max-width: 64px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-decoration: none;
 
   &.active {
     color: var(--primary);
   }
+}
+
+.mobile-tab-bar__more--active {
+  color: var(--primary);
 }
 
 .mobile-tab-bar__icon-wrap {
@@ -47,10 +55,87 @@
   border-radius: 999px;
   display: grid;
   place-items: center;
+  padding: 0 3px;
+
+  &--menu {
+    position: static;
+    margin-left: auto;
+  }
+}
+
+.mobile-tab-bar__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  background: rgba(15, 23, 42, 0.4);
+}
+
+.mobile-tab-bar__menu {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(56px + env(safe-area-inset-bottom));
+  z-index: 101;
+  background: var(--card);
+  border-top: 1px solid var(--border);
+  border-radius: 16px 16px 0 0;
+  padding: 12px 16px 16px;
+  box-shadow: 0 -8px 32px rgba(15, 23, 42, 0.12);
+}
+
+.mobile-tab-bar__menu-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+
+  strong {
+    font-size: 0.9375rem;
+  }
+
+  button {
+    border: none;
+    background: var(--surface);
+    border-radius: 8px;
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    color: var(--text-muted);
+    cursor: pointer;
+  }
+}
+
+.mobile-tab-bar__menu-links {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mobile-tab-bar__menu-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  border: none;
+  background: transparent;
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+
+  &:active {
+    background: var(--surface);
+  }
 }
 
 @media (min-width: 1024px) {
-  .mobile-tab-bar {
+  .mobile-tab-bar,
+  .mobile-tab-bar__menu,
+  .mobile-tab-bar__backdrop {
     display: none;
   }
 }

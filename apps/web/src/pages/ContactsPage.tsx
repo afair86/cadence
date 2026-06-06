@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import type { Contact, ContactMethod } from '@cadence/shared';
+import { SECTIONS } from '@cadence/shared';
 import { fetchContacts } from '../lib/api';
 import { useContactActions } from '../context/ContactActionContext';
 import { useSection } from '../context/SectionContext';
@@ -16,7 +17,7 @@ const healthColors = {
 export default function ContactsPage() {
   const [contacts, setContacts] = useState<Contact[]>([]);
   const { runContactAction, openAddContact, contactsVersion } = useContactActions();
-  const { section, sectionLabel } = useSection();
+  const { section, setSection, sectionLabel } = useSection();
 
   const load = useCallback(() => {
     fetchContacts(section).then(setContacts);
@@ -37,10 +38,22 @@ export default function ContactsPage() {
         <div>
           <h1>{sectionLabel} contacts</h1>
           <p>{contacts.length} relationships in your network</p>
+          <div className="contacts-page__section-tabs">
+            {SECTIONS.map((s) => (
+              <button
+                key={s.id}
+                type="button"
+                className={`contacts-page__section-tab${section === s.id ? ' contacts-page__section-tab--active' : ''}`}
+                onClick={() => setSection(s.id)}
+              >
+                {s.label}
+              </button>
+            ))}
+          </div>
         </div>
-        <button type="button" className="contacts-page__add" onClick={openAddContact}>
+        <button type="button" className="contacts-page__add" onClick={openAddContact} aria-label="Add contact">
           <Plus size={16} />
-          Add Contact
+          <span>Add Contact</span>
         </button>
       </header>
 

@@ -104,6 +104,7 @@
   padding: 8px 14px;
   font-weight: 600;
   cursor: pointer;
+  white-space: nowrap;
 
   &:hover {
     background: var(--primary-dark);
@@ -171,15 +172,46 @@
 @media (max-width: 1023px) {
   .header {
     padding: 16px 16px 8px;
+    gap: 10px;
+  }
+
+  .header__greeting h1 {
+    font-size: 1.125rem;
+  }
+
+  .header__greeting p {
+    font-size: 0.8125rem;
   }
 
   .header__section-tabs {
     display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-right: -16px;
+    padding-right: 16px;
+  }
+
+  .header__section-tab {
+    flex-shrink: 0;
   }
 
   .header__search,
   .header__date,
   .header__user div:last-child {
     display: none;
+  }
+
+  .header__add span {
+    display: none;
+  }
+
+  .header__add {
+    padding: 10px;
+    border-radius: 999px;
+  }
+
+  .header__actions {
+    gap: 8px;
   }
 }
