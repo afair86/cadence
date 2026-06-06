@@ -6,3 +6,4 @@ dist
 .DS_Store
 .vercel
 api/index.mjs
+api/handler.mjs
