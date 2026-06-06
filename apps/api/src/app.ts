@@ -10,6 +10,7 @@ import messagesRoutes from './routes/messages.js';
 import timeBudgetRoutes from './routes/time-budget.js';
 import calendarRoutes from './routes/calendar.js';
 import commitmentsRoutes from './routes/commitments.js';
+import syncRoutes from './routes/sync.js';
 import captureWebhookRoutes from './routes/webhooks/capture.js';
 import twilioWebhookRoutes from './routes/webhooks/twilio.js';
 
@@ -38,6 +39,7 @@ export function createApp() {
   app.use('/api/time-budget', timeBudgetRoutes);
   app.use('/api/calendar', calendarRoutes);
   app.use('/api/commitments', commitmentsRoutes);
+  app.use('/api/sync', syncRoutes);
   app.use('/api/webhooks/capture', captureWebhookRoutes);
   app.use('/api/webhooks/twilio', twilioWebhookRoutes);
 

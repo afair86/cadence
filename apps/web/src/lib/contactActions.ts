@@ -58,65 +58,65 @@ interface DeviceContact {
   tel?: string[];
 }
 
+export function isIosDevice(): boolean {
+  return (
+    /iPad|iPhone|iPod/i.test(navigator.userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+  );
+}
+
+/** Chrome on Android is the main browser where the Contact Picker reliably opens. */
+export function isContactPickerLikelySupported(): boolean {
+  if (!window.isSecureContext) return false;
+  if (isIosDevice()) return false;
+  const nav = navigator as Navigator & { contacts?: { select?: unknown } };
+  return Boolean(nav.contacts && typeof nav.contacts.select === 'function');
+}
+
+export function getDeviceContactImportMode(): 'picker' | 'vcf' {
+  return isContactPickerLikelySupported() ? 'picker' : 'vcf';
+}
+
+function friendlyContactPickerError(err: unknown): string {
+  const message = err instanceof Error ? err.message : String(err);
+  const lower = message.toLowerCase();
+
+  if (lower.includes('unable to open contact selector') || lower.includes('contact selector')) {
+    return 'Your browser cannot open the contact picker. Use “Import from phone (.vcf)” below — it works on iPhone and most Android phones.';
+  }
+  if (lower.includes('secure') || lower.includes('https')) {
+    return 'Contact picker requires a secure (HTTPS) connection. Upload a .vcf file instead.';
+  }
+  if (lower.includes('gesture') || lower.includes('user activation')) {
+    return 'Tap the button again to choose contacts.';
+  }
+  return message || 'Could not open contacts. Upload a .vcf export from your phone instead.';
+}
+
 export async function pickDeviceContacts(): Promise<
   { name: string; phone?: string; email?: string; company?: string }[]
 > {
+  if (!isContactPickerLikelySupported()) {
+    throw new Error('VCFFALLBACK');
+  }
+
   const nav = navigator as Navigator & {
-    contacts?: { select: (props: string[], opts: { multiple: boolean }) => Promise<DeviceContact[]> };
+    contacts: { select: (props: string[], opts: { multiple: boolean }) => Promise<DeviceContact[]> };
   };
 
-  if (!nav.contacts?.select) {
-    throw new Error(
-      'Contact import from your device is not supported in this browser. Upload a .vcf file or add manually.',
-    );
+  try {
+    const picked = await nav.contacts.select(['name', 'email', 'tel'], { multiple: true });
+    if (!picked.length) return [];
+
+    return picked.map((c) => ({
+      name: c.name?.[0] ?? 'Unknown',
+      phone: c.tel?.[0],
+      email: c.email?.[0],
+      company: '',
+    }));
+  } catch (err) {
+    throw new Error(friendlyContactPickerError(err));
   }
-
-  const picked = await nav.contacts.select(['name', 'email', 'tel'], { multiple: true });
-  return picked.map((c) => ({
-    name: c.name?.[0] ?? 'Unknown',
-    phone: c.tel?.[0],
-    email: c.email?.[0],
-    company: '',
-  }));
 }
 
-export function parseVCard(text: string): { name: string; phone?: string; email?: string; company?: string }[] {
-  const cards = text.split(/END:VCARD/i);
-  const results: { name: string; phone?: string; email?: string; company?: string }[] = [];
-
-  for (const block of cards) {
-    if (!block.includes('BEGIN:VCARD')) continue;
-    const fn = block.match(/^FN[^:]*:(.+)$/im)?.[1]?.trim();
-    const n = block.match(/^N[^:]*:([^;\n]+)/im)?.[1]?.trim()?.replace(';', ' ');
-    const name = fn || n;
-    if (!name) continue;
-
-    const phone =
-      block.match(/^TEL[^:]*:(.+)$/im)?.[1]?.trim() ||
-      block.match(/^item\d+\.TEL[^:]*:(.+)$/im)?.[1]?.trim();
-    const email = block.match(/^EMAIL[^:]*:(.+)$/im)?.[1]?.trim();
-    const company = block.match(/^ORG[^:]*:(.+)$/im)?.[1]?.trim()?.replace(/;/g, ' ');
-
-    results.push({ name, phone, email, company });
-  }
-
-  return results;
-}
-
-export function parseContactsCsv(text: string): { name: string; phone?: string; email?: string; company?: string }[] {
-  const lines = text.trim().split(/\r?\n/).filter(Boolean);
-  if (lines.length < 2) return [];
-
-  const headers = lines[0].split(',').map((h) => h.trim().toLowerCase());
-  const idx = (key: string) => headers.indexOf(key);
-
-  return lines.slice(1).map((line) => {
-    const cols = line.split(',').map((c) => c.trim().replace(/^"|"$/g, ''));
-    return {
-      name: cols[idx('name')] || cols[0] || 'Unknown',
-      company: cols[idx('company')] || cols[idx('organisation')] || undefined,
-      phone: cols[idx('phone')] || cols[idx('tel')] || cols[idx('mobile')] || undefined,
-      email: cols[idx('email')] || undefined,
-    };
-  });
-}
+export { parseVCard, parseContactsCsv, parseContactFile } from './contactImport';

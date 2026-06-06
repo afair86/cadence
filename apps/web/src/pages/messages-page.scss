@@ -147,6 +147,40 @@
   border: 1px solid #fecaca;
 }
 
+.messages-page__sync-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #eff6ff 0%, var(--card) 100%);
+  border: 1px solid #bfdbfe;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.15s;
+
+  > svg {
+    color: var(--primary);
+    flex-shrink: 0;
+  }
+
+  strong {
+    display: block;
+    font-size: 0.875rem;
+    margin-bottom: 2px;
+  }
+
+  span span {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+  }
+
+  &:hover {
+    border-color: var(--primary);
+  }
+}
+
 .messages-page__reply-btn:disabled {
   opacity: 0.7;
   cursor: wait;

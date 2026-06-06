@@ -1,0 +1,247 @@
+.settings-page {
+  max-width: 720px;
+  padding-bottom: 32px;
+}
+
+.settings-page--loading,
+.settings-page--error {
+  padding: 24px 0;
+  color: var(--text-muted);
+}
+
+.settings-page--error {
+  color: var(--danger);
+}
+
+.settings-page__header {
+  padding: 20px 0 16px;
+
+  h1 {
+    margin: 0 0 8px;
+    font-size: 1.375rem;
+  }
+
+  p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+    line-height: 1.55;
+  }
+}
+
+.settings-page__built-in {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+  border-radius: 12px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+
+  svg {
+    color: #166534;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  strong {
+    display: block;
+    font-size: 0.875rem;
+    margin-bottom: 4px;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: #166534;
+    line-height: 1.45;
+  }
+}
+
+.settings-page__channels {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sync-channel {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--card);
+  padding: 18px;
+  box-shadow: var(--shadow);
+}
+
+.sync-channel__head {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 14px;
+
+  h2 {
+    margin: 0 0 4px;
+    font-size: 1rem;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+  }
+}
+
+.sync-channel__icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #eef2ff;
+  color: var(--primary);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.sync-channel__copy {
+  margin-bottom: 12px;
+
+  > span {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text-muted);
+  }
+}
+
+.sync-channel__copy-row {
+  display: flex;
+  gap: 8px;
+
+  code {
+    flex: 1;
+    min-width: 0;
+    padding: 8px 10px;
+    border-radius: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    font-size: 0.6875rem;
+    word-break: break-all;
+  }
+
+  button {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    border-radius: 8px;
+    padding: 0 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+}
+
+.sync-channel__guide-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  background: transparent;
+  color: var(--primary);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 8px;
+}
+
+.sync-channel__steps {
+  margin: 0 0 10px;
+  padding-left: 18px;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+
+  li + li {
+    margin-top: 6px;
+  }
+}
+
+.sync-channel__json {
+  margin: 0 0 12px;
+  padding: 10px;
+  border-radius: 8px;
+  background: #1e293b;
+  color: #e2e8f0;
+  font-size: 0.6875rem;
+  overflow-x: auto;
+}
+
+.sync-channel__actions {
+  margin-top: 4px;
+}
+
+.sync-channel__test {
+  border: none;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:disabled {
+    opacity: 0.7;
+  }
+}
+
+.sync-channel__result {
+  margin: 8px 0 0;
+  font-size: 0.8125rem;
+  color: #166534;
+}
+
+.settings-page__note {
+  margin-top: 24px;
+  padding: 16px;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+
+  p {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+    line-height: 1.55;
+
+    + p {
+      margin-top: 10px;
+    }
+  }
+
+  code {
+    font-size: 0.75rem;
+    background: var(--card);
+    padding: 1px 4px;
+    border-radius: 4px;
+  }
+
+  a {
+    color: var(--primary);
+    font-weight: 600;
+  }
+}
+
+@media (max-width: 640px) {
+  .settings-page__header h1 {
+    font-size: 1.125rem;
+  }
+
+  .sync-channel__copy-row {
+    flex-direction: column;
+  }
+}

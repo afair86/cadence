@@ -20,6 +20,7 @@ interface CompletedAction {
 interface ContactActionContextValue {
   toast: ToastState | null;
   clearToast: () => void;
+  showToast: (message: string, type?: 'success' | 'error') => void;
   runContactAction: (contactId: string, action: ContactMethod) => Promise<boolean>;
   showAddContact: boolean;
   openAddContact: () => void;
@@ -37,6 +38,10 @@ export function ContactActionProvider({ children }: { children: ReactNode }) {
   const [completedAction, setCompletedAction] = useState<CompletedAction | null>(null);
 
   const clearToast = useCallback(() => setToast(null), []);
+
+  const showToast = useCallback((message: string, type: 'success' | 'error' = 'success') => {
+    setToast({ message, type });
+  }, []);
 
   const runContactAction = useCallback(async (contactId: string, action: ContactMethod) => {
     try {
@@ -77,6 +82,7 @@ export function ContactActionProvider({ children }: { children: ReactNode }) {
       value={{
         toast,
         clearToast,
+        showToast,
         runContactAction,
         showAddContact,
         openAddContact: () => setShowAddContact(true),

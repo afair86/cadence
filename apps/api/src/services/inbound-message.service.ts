@@ -32,6 +32,35 @@ export async function findContactByEmail(teamId: string, email: string) {
   });
 }
 
+function extractEmailAddress(raw: string): string {
+  const match = raw.match(/<([^>]+)>/) ?? raw.match(/([\w.+-]+@[\w.-]+\.\w+)/);
+  return (match?.[1] ?? raw).trim().toLowerCase();
+}
+
+export async function resolveContactForInbound(
+  teamId: string,
+  opts: { contactId?: string; phone?: string; email?: string },
+) {
+  if (opts.contactId) {
+    const byId = await prisma.contact.findFirst({
+      where: { id: opts.contactId, teamId },
+    });
+    if (byId) return byId;
+  }
+
+  if (opts.email) {
+    const byEmail = await findContactByEmail(teamId, extractEmailAddress(opts.email));
+    if (byEmail) return byEmail;
+  }
+
+  if (opts.phone) {
+    const byPhone = await findContactByPhone(teamId, opts.phone);
+    if (byPhone) return byPhone;
+  }
+
+  return null;
+}
+
 export async function recordInboundMessage(opts: {
   teamId: string;
   userId?: string;

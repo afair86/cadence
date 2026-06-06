@@ -75,6 +75,50 @@
   gap: 12px;
 }
 
+.contacts-page__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 48px 24px;
+  background: var(--card);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+
+  svg {
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  h2 {
+    margin: 0 0 8px;
+    font-size: 1.125rem;
+  }
+
+  p {
+    margin: 0 0 20px;
+    max-width: 320px;
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+}
+
+.contacts-page__empty-btn {
+  border: none;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--primary-dark);
+  }
+}
+
 .contact-card {
   display: flex;
   gap: 14px;

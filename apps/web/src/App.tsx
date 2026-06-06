@@ -10,6 +10,7 @@ import SmartTasksPage from './pages/SmartTasksPage';
 import MessagesPage from './pages/MessagesPage';
 import CalendarPage from './pages/CalendarPage';
 import CommitmentsPage from './pages/CommitmentsPage';
+import SettingsPage from './pages/SettingsPage';
 import PlaceholderPage from './pages/PlaceholderPage';
 
 export default function App() {
@@ -31,7 +32,7 @@ export default function App() {
           <Route path="deals" element={<PlaceholderPage title="Deals" />} />
           <Route path="reports" element={<PlaceholderPage title="Reports" />} />
           <Route path="automations" element={<PlaceholderPage title="Automations" />} />
-          <Route path="settings" element={<PlaceholderPage title="Settings" />} />
+          <Route path="settings" element={<SettingsPage />} />
         </Route>
       </Route>
     </Routes>

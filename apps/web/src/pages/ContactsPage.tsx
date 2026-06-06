@@ -5,7 +5,7 @@ import { fetchContacts } from '../lib/api';
 import { useContactActions } from '../context/ContactActionContext';
 import { useSection } from '../context/SectionContext';
 import { SPHERE_LABELS } from '@cadence/shared';
-import { Phone, Mail, MessageSquare, Plus } from 'lucide-react';
+import { Phone, Mail, MessageSquare, Plus, Upload } from 'lucide-react';
 import './contacts-page.scss';
 
 const healthColors = {
@@ -58,6 +58,16 @@ export default function ContactsPage() {
       </header>
 
       <div className="contacts-page__list">
+        {contacts.length === 0 ? (
+          <div className="contacts-page__empty">
+            <Upload size={32} strokeWidth={1.5} />
+            <h2>No contacts yet</h2>
+            <p>Import your phone book or a CSV from Google or Outlook to get started.</p>
+            <button type="button" className="contacts-page__empty-btn" onClick={openAddContact}>
+              Import contacts
+            </button>
+          </div>
+        ) : null}
         {contacts.map((contact) => (
           <article key={contact.id} className="contact-card">
             <div className="contact-card__avatar">{contact.name.charAt(0)}</div>

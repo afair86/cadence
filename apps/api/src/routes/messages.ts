@@ -58,7 +58,7 @@ router.get('/', async (req, res) => {
   const inbound = inboundRows.map(toInboundDto);
 
   const unreadCount = inbound.filter((m) => m.status === 'unread').length;
-  let capture = { webhookUrl: '', emailWebhookUrl: '', smsWebhookUrl: '' };
+  let capture = { webhookUrl: '', emailWebhookUrl: '', smsWebhookUrl: '', callWebhookUrl: '' };
   try {
     capture = await buildCaptureSetup(teamId, publicApiBase(req));
   } catch {

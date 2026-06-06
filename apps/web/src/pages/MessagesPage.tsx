@@ -14,12 +14,12 @@ import {
 } from '../lib/api';
 import { useContactActions } from '../context/ContactActionContext';
 import { useSection } from '../context/SectionContext';
+import { Link } from 'react-router-dom';
 import SendViaModal from '../components/messages/SendViaModal';
-import CaptureSetupPanel from '../components/messages/CaptureSetupPanel';
 import type { MessagePlatform } from '@cadence/shared';
 import { activityTypeForPlatform, platformLabel } from '@cadence/shared';
 import { MESSAGE_PLATFORMS } from '@cadence/shared';
-import { Mail, MessageSquare, Pencil, Sparkles, Trash2, X, Check, Send, Inbox, Reply } from 'lucide-react';
+import { Mail, MessageSquare, Pencil, Sparkles, Trash2, X, Check, Send, Inbox, Reply, RefreshCw } from 'lucide-react';
 import './messages-page.scss';
 
 const channelLabels: Record<ContactMethod, string> = {
@@ -207,13 +207,13 @@ export default function MessagesPage() {
         </p>
       ) : null}
 
-      <CaptureSetupPanel
-        capture={data.capture}
-        onTested={() => {
-          setNotice({ type: 'success', message: 'Test message captured — check Incoming above.' });
-          load();
-        }}
-      />
+      <Link to="/settings" className="messages-page__sync-banner">
+        <RefreshCw size={18} />
+        <span>
+          <strong>Auto-sync calls, texts &amp; email</strong>
+          <span>Set up in Settings — messages and calls log automatically</span>
+        </span>
+      </Link>
 
       <section className="messages-page__section">
         <h2>

@@ -9,6 +9,9 @@ import type {
   CreateActivityInput,
   CreateCommitmentInput,
   CreateContactInput,
+  CaptureSetup,
+  SyncChannel,
+  ImportContactsResult,
   DashboardData,
   LogInboundInput,
   MessagesData,
@@ -93,6 +96,10 @@ export async function createContact(data: CreateContactInput) {
   return request('/api/contacts', { method: 'POST', body: JSON.stringify(data) });
 }
 
+export async function importContacts(contacts: CreateContactInput[]): Promise<ImportContactsResult> {
+  return request('/api/contacts/import', { method: 'POST', body: JSON.stringify({ contacts }) });
+}
+
 export async function fetchActivities(section: SectionView = 'business', limit = 50): Promise<Activity[]> {
   return request(`/api/activities?section=${section}&limit=${limit}`);
 }
@@ -144,6 +151,14 @@ export async function markInboxMessageRead(id: string) {
 
 export async function testCaptureWebhook() {
   return request('/api/messages/capture/test', { method: 'POST' });
+}
+
+export async function fetchSyncSetup(): Promise<CaptureSetup> {
+  return request('/api/sync/setup');
+}
+
+export async function testSyncChannel(channel: SyncChannel) {
+  return request(`/api/sync/test/${channel}`, { method: 'POST' });
 }
 
 export async function generateAutomation(contactId: string, channel?: string) {

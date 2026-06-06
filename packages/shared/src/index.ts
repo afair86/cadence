@@ -116,6 +116,11 @@ export interface CreateContactInput {
   responseTime?: string;
 }
 
+export interface ImportContactsResult {
+  imported: number;
+  skipped: number;
+}
+
 export interface Activity {
   id: string;
   contactId: string;
@@ -220,7 +225,10 @@ export interface CaptureSetup {
   webhookUrl: string;
   emailWebhookUrl: string;
   smsWebhookUrl: string;
+  callWebhookUrl: string;
 }
+
+export type SyncChannel = 'message' | 'email' | 'call';
 
 export interface MessagesData {
   inbound: InboundMessage[];

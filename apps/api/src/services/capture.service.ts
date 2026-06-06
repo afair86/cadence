@@ -3,10 +3,17 @@ import type { Request } from 'express';
 import { randomUUID } from 'crypto';
 import { prisma } from '../db.js';
 import {
-  findContactByEmail,
-  findContactByPhone,
   recordInboundMessage,
+  resolveContactForInbound,
 } from './inbound-message.service.js';
+import {
+  processInboundCaptureWithCommitments,
+  processOutboundCapture,
+  processCallCapture,
+} from './sync.service.js';
+import type { CapturePayload } from '../lib/capture-payload.js';
+
+export type { CapturePayload } from '../lib/capture-payload.js';
 
 const PLATFORMS = new Set<MessagePlatform>([
   'sms',
@@ -52,6 +59,7 @@ export async function buildCaptureSetup(teamId: string, baseUrl: string) {
     webhookUrl: root,
     emailWebhookUrl: `${root}/email`,
     smsWebhookUrl: `${root}/sms`,
+    callWebhookUrl: `${root}/call`,
   };
 }
 
@@ -67,55 +75,29 @@ function extractEmailAddress(raw: string): string {
   return (match?.[1] ?? raw).trim().toLowerCase();
 }
 
-export async function resolveContactForInbound(
-  teamId: string,
-  opts: { contactId?: string; phone?: string; email?: string },
-) {
-  if (opts.contactId) {
-    const byId = await prisma.contact.findFirst({
-      where: { id: opts.contactId, teamId },
-    });
-    if (byId) return byId;
-  }
-
-  if (opts.email) {
-    const byEmail = await findContactByEmail(teamId, extractEmailAddress(opts.email));
-    if (byEmail) return byEmail;
-  }
-
-  if (opts.phone) {
-    const byPhone = await findContactByPhone(teamId, opts.phone);
-    if (byPhone) return byPhone;
-  }
-
-  return null;
-}
-
-export interface CapturePayload {
-  body?: string;
-  text?: string;
-  message?: string;
-  platform?: string;
-  phone?: string;
-  email?: string;
-  from?: string;
-  contactId?: string;
-  externalId?: string;
-  subject?: string;
-}
-
 export async function processCapturePayload(teamId: string, raw: CapturePayload) {
+  const captureType = raw.type?.trim().toLowerCase();
+  if (captureType === 'call') {
+    return processCallCapture(teamId, raw);
+  }
+
   const subject = raw.subject?.trim();
   const body = (raw.body ?? raw.text ?? raw.message ?? '').trim();
   const fullBody = subject && body ? `${subject}\n\n${body}` : body || subject || '';
 
-  if (!fullBody) {
+  if (!fullBody && captureType !== 'call') {
     throw new Error('Message body required');
   }
 
   const emailHint = raw.email ?? (raw.from?.includes('@') ? raw.from : undefined);
   const phoneHint = raw.phone ?? (raw.from && !raw.from.includes('@') ? raw.from : undefined);
   const platform = normalizePlatform(raw.platform, Boolean(emailHint));
+  const direction = raw.direction?.trim().toLowerCase();
+
+  if (direction === 'outbound') {
+    const activityType = platform === 'email' ? 'email' : 'sms';
+    return processOutboundCapture(teamId, { ...raw, body: fullBody }, activityType);
+  }
 
   const contact = await resolveContactForInbound(teamId, {
     contactId: raw.contactId,
@@ -128,14 +110,18 @@ export async function processCapturePayload(teamId: string, raw: CapturePayload)
     raw.phone?.trim() ||
     (emailHint ? extractEmailAddress(emailHint) : undefined);
 
-  return recordInboundMessage({
+  const row = await recordInboundMessage({
     teamId,
     contactId: contact?.id ?? null,
     platform,
     body: fullBody,
     fromLabel,
     externalId: raw.externalId,
+    receivedAt: raw.receivedAt ? new Date(String(raw.receivedAt)) : undefined,
   });
+
+  await processInboundCaptureWithCommitments(teamId, row, fullBody);
+  return row;
 }
 
 /** Mailgun, SendGrid, or plain JSON email inbound */
