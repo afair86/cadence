@@ -5,8 +5,9 @@
   "outputDirectory": "apps/web/dist",
   "framework": "vite",
   "functions": {
-    "api/index.mjs": {
-      "maxDuration": 30
+    "api/index.ts": {
+      "maxDuration": 30,
+      "includeFiles": "api/index.js"
     }
   },
   "rewrites": [
